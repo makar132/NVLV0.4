@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/nav_graph"
+    app:startDestination="@id/startFragment">
+
+    <fragment
+        android:id="@+id/startFragment"
+        android:name="com.example.nvlv04.ui.fragments.StartFragment"
+        android:label="fragment_start"
+        tools:layout="@layout/fragment_start">
+        <action
+            android:id="@+id/action_startFragment_to_signinFragment"
+            app:destination="@id/signinFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/startFragment"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_startFragment_to_app_onboardingFragment"
+            app:destination="@id/app_onboardingFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/signinFragment"
+        android:name="com.example.nvlv04.ui.fragments.SigninFragment"
+        android:label="fragment_signin"
+        tools:layout="@layout/fragment_signin">
+        <action
+            android:id="@+id/action_signinFragment_to_signupFragment"
+            app:destination="@id/signupFragment_first" />
+        <action
+            android:id="@+id/action_signinFragment_to_app_mainFragment"
+            app:destination="@id/app_mainFragment"
+            app:enterAnim="@anim/animate_windmill_enter"
+            app:launchSingleTop="true"
+            app:popExitAnim="@anim/animate_windmill_exit"
+            app:popUpTo="@id/signinFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment_first"
+        android:name="com.example.nvlv04.ui.fragments.SignupFragment_first"
+        android:label="fragment_signup"
+        tools:layout="@layout/fragment_signup_first">
+        <action
+            android:id="@+id/action_signupFragment_to_signinFragment"
+            app:destination="@id/signinFragment" />
+        <action
+            android:id="@+id/action_signupFragment_first_to_signupFragment_second"
+            app:destination="@id/signupFragment_second"
+            app:enterAnim="@anim/animate_windmill_enter"
+            app:popExitAnim="@anim/animate_windmill_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/app_mainFragment"
+        android:name="com.example.nvlv04.ui.fragments.App_mainFragment"
+        android:label="fragment_app_main"
+        tools:layout="@layout/fragment_app_main">
+        <action
+            android:id="@+id/action_app_mainFragment_to_signinFragment"
+            app:destination="@id/signinFragment"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/app_mainFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment_fourth"
+        android:name="com.example.nvlv04.ui.fragments.SignupFragment_fourth"
+        android:label="fragment_signup_fourth"
+        tools:layout="@layout/fragment_signup_fourth" >
+        <action
+            android:id="@+id/action_signupFragment_fourth_to_app_mainFragment"
+            app:destination="@id/app_mainFragment"
+            app:enterAnim="@anim/animate_windmill_enter"
+            app:launchSingleTop="true"
+            app:popUpTo="@id/nav_graph"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_signupFragment_fourth_to_add_family_member_dialogFragment"
+            app:destination="@id/add_family_member_dialogFragment" />
+        <argument
+            android:name="memberImageId"
+            app:argType="integer"
+            android:defaultValue="0" />
+        <argument
+            android:name="memberFirstName"
+            app:argType="string" />
+        <argument
+            android:name="memberLastName"
+            app:argType="string" />
+        <argument
+            android:name="memberMedicalRecord"
+            app:argType="string"
+            app:nullable="true" />
+
+    </fragment>
+    <fragment
+        android:id="@+id/app_onboardingFragment"
+        android:name="com.example.nvlv04.ui.fragments.App_onboardingFragment"
+        android:label="fragment_app_onboarding"
+        tools:layout="@layout/fragment_app_onboarding" >
+        <action
+            android:id="@+id/action_app_onboardingFragment_to_onboardingFinishFragment"
+            app:destination="@id/onboardingFinishFragment"
+            app:enterAnim="@anim/animate_windmill_enter"
+            app:launchSingleTop="true"
+            app:popExitAnim="@anim/animate_windmill_exit"
+            app:popUpToInclusive="false" />
+    </fragment>
+    <fragment
+        android:id="@+id/onboardingFinishFragment"
+        android:name="com.example.nvlv04.ui.fragments.OnboardingFinishFragment"
+        android:label="fragment_onboarding_finish"
+        tools:layout="@layout/fragment_onboarding_finish" >
+        <action
+            android:id="@+id/action_onboardingFinishFragment_to_startFragment"
+            app:destination="@id/startFragment"
+            app:enterAnim="@anim/animate_spin_enter" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment_third"
+        android:name="com.example.nvlv04.ui.fragments.SignupFragment_third"
+        android:label="fragment_signup_third"
+        tools:layout="@layout/fragment_signup_third" >
+        <action
+            android:id="@+id/action_signupFragment_third_to_signupFragment_fourth"
+            app:destination="@id/signupFragment_fourth"
+            app:enterAnim="@anim/animate_windmill_enter"
+            app:launchSingleTop="true"
+            app:popExitAnim="@anim/animate_windmill_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/signupFragment_second"
+        android:name="com.example.nvlv04.ui.fragments.SignupFragment_second"
+        android:label="fragment_signup_second"
+        tools:layout="@layout/fragment_signup_second" >
+        <action
+            android:id="@+id/action_signupFragment_second_to_signupFragment_third"
+            app:destination="@id/signupFragment_third"
+            app:enterAnim="@anim/animate_windmill_enter"
+            app:popExitAnim="@anim/animate_windmill_exit" />
+    </fragment>
+    <fragment
+        android:id="@+id/add_family_member_dialogFragment"
+        android:name="com.example.nvlv04.ui.fragments.Add_family_member_dialogFragment"
+        android:label="fragment_add_family_member_dialog"
+        tools:layout="@layout/fragment_add_family_member_dialog" >
+        <action
+            android:id="@+id/action_add_family_member_dialogFragment_to_signupFragment_fourth"
+            app:destination="@id/signupFragment_fourth"
+            app:enterAnim="@anim/animate_zoom_enter"
+            app:launchSingleTop="true"
+            app:popExitAnim="@anim/animate_shrink_exit"
+            app:popUpTo="@id/add_family_member_dialogFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+</navigation>

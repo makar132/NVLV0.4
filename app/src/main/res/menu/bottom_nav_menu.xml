@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/app_homeFragment2"
+        android:icon="@drawable/nav_bar_custom_home_icon"
+        android:title="Home" />
+    <item
+        android:id="@+id/app_reportFragment2"
+        android:icon="@drawable/nav_bar_custom_new_icon"
+        android:title="Report" />
+    <item
+        android:id="@+id/app_feedFragment2"
+        android:icon="@drawable/nav_bar_custom_feed_icon"
+        android:title="Feed" />
+    <item
+        android:id="@+id/app_settingsFragment2"
+        android:icon="@drawable/nav_bar_custom_settings_icon"
+        android:title="Settings" />
+</menu>

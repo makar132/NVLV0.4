@@ -1,0 +1,32 @@
+pluginManagement {
+    repositories {
+        gradlePluginPortal()
+        google()
+        mavenCentral()
+
+    }
+}
+dependencyResolutionManagement {
+    repositoriesMode.set(RepositoriesMode.FAIL_ON_PROJECT_REPOS)
+    repositories {
+        google()
+        mavenCentral()
+        maven { url 'https://jitpack.io' }
+        repositories {
+            maven {
+                name = "GitHubPackages"
+
+                url = uri("https://maven.pkg.github.com/Cuberto/liquid-swipe-android")
+                credentials {
+                    /** Create github.properties in root project folder file with
+                     ** gpr.usr=GITHUB_USER_ID & gpr.key=PERSONAL_ACCESS_TOKEN
+                     ** Or set env variable GPR_USER & GPR_API_KEY if not adding a properties file**/
+                    username = "makar132"
+                    password = "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"
+                }
+            }
+        }
+    }
+}
+rootProject.name = "NVLV0.4"
+include ':app'
