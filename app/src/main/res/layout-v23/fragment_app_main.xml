@@ -24,7 +24,6 @@
         app:abb_tabColorSelected="@color/custom_color_1"
         app:abb_tabs="@menu/tabs"
 
-        app:abb_textAppearance="@style/CustomText"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

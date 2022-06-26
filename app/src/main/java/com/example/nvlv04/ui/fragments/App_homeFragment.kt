@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import com.example.nvlv04.R
@@ -50,11 +51,14 @@ class App_homeFragment : Fragment() {
         // Inflate the layout for this fragment
         viewModel = ViewModelProvider(this).get(AppHomeFragmentViewModel::class.java)
         binding = FragmentAppHomeBinding.inflate(inflater,container,false)
+        (activity as AppCompatActivity).supportActionBar?.hide()
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+
         binding.rvFamilyMembers.adapter=familyRecyclerView
 //        familyMemberList.add(familyMember(0,"0","1","3"))
 //        familyMemberList.add(familyMember(0,"4","5","6"))

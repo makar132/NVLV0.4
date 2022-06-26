@@ -1,3 +1,30 @@
 <resources>
     <string name="app_name">project37</string>
+    <string name="title">nvl</string>
+    <string name="message">abc</string>
+    <string name="schedule_notification">schedule_notification</string>
+    <string name="title_onboarding_1">Welcome to Onboarding App !</string>
+    <string name="description_onboarding_1">Here is an open-source project which shows sweet &amp; original onboarding ViewPagers that follows Material Design Guidelines</string>
+
+    <string name="title_onboarding_2">Try AirBnB Lottie</string>
+    <string name="description_onboarding_2">We use Lottie Animations on our Intro to make it interactive &amp; pleasant. Did you already tried it ? If no, let\'s start now. It\'s just awesome</string>
+
+    <string name="title_onboarding_3">Code beautiful apps</string>
+    <string name="description_onboarding_3">Our mission is to make useful &amp; subtle apps. We love help people to save time with open-source stuffs, but we also make life easier by creating new things. Good Coding!</string>
+
+    <string name="start_text_advice">By continuing on this application you agree to our Terms of Use and Privacy Policy</string>
+<dimen name="onboarding_viewpager_padding">16dp</dimen>
+    <dimen name="start_drawable_padding">12dp</dimen>
+    <dimen name="edit_text_width">320dp</dimen>
+    <dimen name="edit_text_height">60dp</dimen>
+    <string name="start">start</string>
+    <string name="skip">Skip</string>
+    <string name="finish">finish</string>
+    <string name="next">next</string>
+    <string name="back">back</string>
+    <string name="sign_up_here"><b>Sign up here</b></string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hello_settings_fragment">Hello blank fragment</string>
+    <string name="Todo_message">بطل بعبصة يخول</string>
 </resources>
