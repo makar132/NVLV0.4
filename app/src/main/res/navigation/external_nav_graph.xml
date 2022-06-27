@@ -3,7 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/nav_graph"
-    app:startDestination="@id/startFragment">
+    app:startDestination="@id/app_mainFragment">
 
     <fragment
         android:id="@+id/startFragment"
@@ -62,6 +62,13 @@
             app:launchSingleTop="true"
             app:popUpTo="@id/app_mainFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_app_mainFragment_to_add_family_member_dialogFragment"
+            app:destination="@id/add_family_member_dialogFragment"
+            app:enterAnim="@anim/animate_slide_up_enter"
+            app:launchSingleTop="true"
+            app:popExitAnim="@anim/animate_slide_down_exit"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/signupFragment_fourth"
@@ -153,5 +160,14 @@
             app:popExitAnim="@anim/animate_shrink_exit"
             app:popUpTo="@id/add_family_member_dialogFragment"
             app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_add_family_member_dialogFragment_to_app_mainFragment"
+            app:destination="@id/app_mainFragment"
+            app:enterAnim="@anim/animate_windmill_enter"
+            app:exitAnim="@anim/animate_windmill_exit"
+            app:launchSingleTop="false"
+            app:popEnterAnim="@anim/animate_windmill_enter"
+            app:popExitAnim="@anim/animate_windmill_exit"
+            app:popUpToInclusive="false" />
     </fragment>
 </navigation>

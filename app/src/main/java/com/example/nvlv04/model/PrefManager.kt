@@ -17,7 +17,10 @@ class PrefManager(context: Context?) {
 
     var pref: SharedPreferences? = context?.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
     var editor: SharedPreferences.Editor? = pref?.edit()
-
+    fun setnavparent(navparent: String?) {
+        editor?.putString("navparent", navparent)
+        editor?.commit()
+    }
     fun setLoggin(isLogin: Boolean) {
         editor?.putBoolean(IS_LOGIN, isLogin)
         editor?.commit()
@@ -60,6 +63,9 @@ class PrefManager(context: Context?) {
     }
     fun Onboard(): Boolean? {
         return pref?.getBoolean("Onboard", false)
+    }
+    fun getnavparent(): String? {
+        return pref?.getString("navparent", null)
     }
     fun getUsername(): String? {
         return pref?.getString("username", "admin")

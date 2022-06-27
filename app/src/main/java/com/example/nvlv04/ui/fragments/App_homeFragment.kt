@@ -1,6 +1,7 @@
 package com.example.nvlv04.ui.fragments
 
 import android.content.Context
+import android.content.SharedPreferences
 import android.net.ConnectivityManager
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -10,12 +11,11 @@ import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.fragment.findNavController
 import com.example.nvlv04.R
 import com.example.nvlv04.databinding.FragmentAppHomeBinding
+import com.example.nvlv04.model.PrefManager
 import com.example.nvlv04.model.entity.familyMember
-import com.example.nvlv04.model.remote.remoteRepoImp
-import com.example.nvlv04.model.remote.retroBuilder
-import com.example.nvlv04.model.remote.serviceApi
 import com.example.nvlv04.ui.adapter.FamilyMemberRecyclerView
 
 // TODO: Rename parameter arguments, choose names that match
@@ -28,7 +28,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [App_homeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class App_homeFragment : Fragment() {
+class App_homeFragment : Fragment(),SharedPreferences.OnSharedPreferenceChangeListener {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -36,6 +36,7 @@ class App_homeFragment : Fragment() {
     var familyRecyclerView= FamilyMemberRecyclerView()
     lateinit var binding: FragmentAppHomeBinding
     lateinit var viewModel: AppHomeFragmentViewModel
+    private lateinit var prefManager: PrefManager
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -57,8 +58,7 @@ class App_homeFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-
-
+        prefManager=PrefManager(requireContext())
         binding.rvFamilyMembers.adapter=familyRecyclerView
 //        familyMemberList.add(familyMember(0,"0","1","3"))
 //        familyMemberList.add(familyMember(0,"4","5","6"))
@@ -77,8 +77,35 @@ class App_homeFragment : Fragment() {
 
             }
         }
-        familyRecyclerView.setList(familyMemberList)
+        binding.btnAddFamilyMemeber.setOnClickListener{
+            if(familyRecyclerView.itemCount<3) {
+                prefManager.setnavparent("home")
+                findNavController().navigate(R.id.action_app_mainFragment_to_add_family_member_dialogFragment)
+            }
+            else{
+                Toast.makeText(requireContext(),"You can add only 3 family members",Toast.LENGTH_LONG).show()
+            }
+        }
 
+
+    }
+
+
+    override fun onResume() {
+        super.onResume()
+
+        if(prefManager.getFamilyMemberfirstname()!=""){
+            val firstname=prefManager.getFamilyMemberfirstname()
+            val lastname=prefManager.getFamilyMemberlastname()
+            val medicalrecord=prefManager.getFamilyMembermedicalrecord()
+            val memberimageid=prefManager.getFamilyMemberimageid()
+            if(firstname!=null && lastname!=null && memberimageid!=null){
+                familyMemberList.add(familyMember(memberimageid,firstname,lastname,medicalrecord!!))
+                familyRecyclerView.setList(familyMemberList)
+            }
+            prefManager.reserfamilyMember()
+
+        }
     }
     companion object {
         /**
@@ -98,6 +125,20 @@ class App_homeFragment : Fragment() {
                     putString(ARG_PARAM2, param2)
                 }
             }
+    }
+
+    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
+        if(key=="FamilyMemberfirstname"){
+            val firstname=prefManager.getFamilyMemberfirstname()
+            val lastname=prefManager.getFamilyMemberlastname()
+            val medicalrecord=prefManager.getFamilyMembermedicalrecord()
+            val memberimageid=prefManager.getFamilyMemberimageid()
+            if(firstname!=null && lastname!=null && memberimageid!=null){
+                familyMemberList.add(familyMember(memberimageid,firstname,lastname,medicalrecord!!))
+                familyRecyclerView.setList(familyMemberList)
+            }
+            prefManager.reserfamilyMember()
+        }
     }
 
 }

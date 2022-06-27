@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentTransaction
 import com.example.nvlv04.R
@@ -52,7 +53,8 @@ class App_mainFragment : Fragment() {
             }
 
         }
-        */newFragment = when (binding.bottomBar.selectedTab?.id) {
+        */
+        newFragment = when (binding.bottomBar.selectedTab?.id) {
             R.id.app_homeFragment2 -> homefragment
             R.id.app_feedFragment2 -> feedfragment
             R.id.app_reportFragment2 -> reportfragment
@@ -61,6 +63,8 @@ class App_mainFragment : Fragment() {
             else -> null
         }
         if (newFragment != null) {
+            newFragment?.onDetach()
+            newFragment?.onAttach(context!!)
             activity?.supportFragmentManager?.beginTransaction()
                 ?.replace(R.id.app_container_second, newFragment!!)?.commit()
 
@@ -95,6 +99,7 @@ class App_mainFragment : Fragment() {
         }
 
     }
+
 
 }
 

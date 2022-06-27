@@ -53,10 +53,7 @@ var familyMemberList: ArrayList<familyMember> = ArrayList()
     }
 
 
-    override fun onStart() {
-        super.onStart()
 
-    }
     override fun onResume() {
         super.onResume()
         if(prefManager.getFamilyMemberfirstname()!=""){
