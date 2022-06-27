@@ -65,7 +65,7 @@ class App_homeFragment : Fragment() {
 //        familyMemberList.add(familyMember(0,"7","8","9"))
         val conManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val internetInfo =conManager.activeNetworkInfo
-        if((internetInfo != null) && internetInfo.isConnected!=true){
+        if((internetInfo != null) && !internetInfo.isConnected){
             Toast.makeText(context, "no internet connection", Toast.LENGTH_SHORT).show()
         }
         viewModel.getAppUserApi("1")

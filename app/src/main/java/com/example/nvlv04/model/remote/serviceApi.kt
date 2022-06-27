@@ -10,6 +10,8 @@ interface serviceApi {
     suspend fun getApiUsers(
         @Query("name", encoded = false) name:String
     ):Response<List<User>>
+    @GET("/makar132/test_rest_api_repo/users")
+    suspend fun getApiAllUsers():Response<List<User>>
     @GET("/makar132/test_rest_api_repo/appusers")
     suspend fun getApiAppUser(
         @Query("national_id", encoded = false) national_id:String

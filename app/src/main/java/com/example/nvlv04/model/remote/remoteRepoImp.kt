@@ -13,6 +13,11 @@ class remoteRepoImp(private val api: serviceApi) : remoteRepo {
             api.getApiUsers(name)
         }
 
+    override suspend fun getApiAllUsers() =
+        withContext(Dispatchers.IO) {
+        api.getApiAllUsers()
+    }
+
     override suspend fun addApiUser(user: User) = withContext(Dispatchers.IO) {
 
         api.addApiUser(user)
