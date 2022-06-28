@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/app_report_fragment"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.fragments.App_reportFragment"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
+
+
+    <Button
+        android:id="@+id/btn_report_found_scan_qr"
+        android:background="@drawable/custom_button"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="Scan qr code"
+        android:layout_marginBottom="35dp"
+        />
+    <Button
+        android:id="@+id/btn_report_use_face_recognition"
+        android:background="@drawable/custom_button"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="use face recognition"
+        android:layout_marginBottom="35dp"
+        />
+    <Button
+        android:id="@+id/btn_report_found_post_to_feed"
+        android:background="@drawable/custom_button"
+        android:layout_width="350dp"
+        android:layout_height="wrap_content"
+        android:text="post on feed"
+        android:layout_marginBottom="35dp"
+        />
+
+</LinearLayout>
