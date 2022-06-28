@@ -35,8 +35,6 @@ class OnboardingPageFragment : Fragment() {
             R.layout.first_page
         } else if (position == 2) {
             R.layout.second_page
-        } else if (position == 3) {
-            R.layout.fragment_onboard_third
         } else R.layout.fragment_page_number
 
         return layoutInflater.inflate(layoutId, container, false)
@@ -52,6 +50,7 @@ class OnboardingPageFragment : Fragment() {
             }
             2 -> return
             3 -> {
+                return
                 //prefManager.setOnboarding()
             }
             4 -> view.setBackgroundColor(

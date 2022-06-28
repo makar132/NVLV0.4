@@ -9,8 +9,8 @@ import android.view.ViewGroup
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import com.example.nvlv04.R
 import com.example.nvlv04.databinding.FragmentAppFeedBinding
-import com.example.nvlv04.model.entity.familyMember
 import com.example.nvlv04.model.entity.feedPost
 import com.example.nvlv04.ui.adapter.feedPostRecyclerView
 
@@ -28,7 +28,7 @@ class App_feedFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
-    var feed: List<feedPost> = emptyList()
+    var feed: ArrayList<feedPost> = ArrayList()
     var feedRecyclerView= feedPostRecyclerView()
     lateinit var binding: FragmentAppFeedBinding
     lateinit var viewModel: AppFeedFragmentViewModel
@@ -53,17 +53,29 @@ class App_feedFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.rvFamilyMembers.adapter=feedRecyclerView
+        feed.add(feedPost(resources.getDrawable(R.drawable.profile_avatar),"Nvl"))
+        feed.add(feedPost(resources.getDrawable(R.drawable.profile_avatar),"first post"))
+        feed.add(feedPost(resources.getDrawable(R.drawable.profile_avatar),"third post"))
+        feed.add(feedPost(resources.getDrawable(R.drawable.profile_avatar),"second post"))
+        feed.add(feedPost(resources.getDrawable(R.drawable.profile_avatar),"fourth post"))
+        feedRecyclerView.setList(feed)
+
         val conManager = context?.getSystemService(Context.CONNECTIVITY_SERVICE) as ConnectivityManager
         val internetInfo =conManager.activeNetworkInfo
         if((internetInfo != null) && !internetInfo.isConnected){
             Toast.makeText(context, "no internet connection", Toast.LENGTH_SHORT).show()
         }
-        viewModel.getfeed()
+        viewModel.getuser("eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwibmF0aW9uYWxfaWQiOiIxMjM0NTY3ODkxMDIzNCIsInVzZXJfdHlwZSI6ImZhbWlseV9hZG1pbiIsImlhdCI6MTY1NjI4NDc3NH0.Lzx6JGthMFUZs_y_JtuovZQxdTpaAy6oCpf8A664HG0")
         viewModel.appuserApiLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
-                feedRecyclerView.setList(it)
+                //feedRecyclerView.setList(it)
+                Toast.makeText(context, "${it.id}", Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, it.username, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, it.first_name, Toast.LENGTH_SHORT).show()
+                Toast.makeText(context, it.last_name, Toast.LENGTH_SHORT).show()
 
             }
+
         }
 //        feedRecyclerView.setList(feed)
 

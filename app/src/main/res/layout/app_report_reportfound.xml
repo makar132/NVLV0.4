@@ -13,23 +13,23 @@
     <Button
         android:id="@+id/btn_report_found_scan_qr"
         android:background="@drawable/custom_button"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="Scan qr code"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="15dp"
         />
     <Button
         android:id="@+id/btn_report_use_face_recognition"
         android:background="@drawable/custom_button"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="use face recognition"
-        android:layout_marginBottom="35dp"
+        android:layout_marginBottom="15dp"
         />
     <Button
         android:id="@+id/btn_report_found_post_to_feed"
         android:background="@drawable/custom_button"
-        android:layout_width="350dp"
+        android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:text="post on feed"
         android:layout_marginBottom="35dp"

@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.example.nvlv04.R
@@ -18,6 +19,7 @@ class SignupFragment_first : Fragment() {
     ): View? {
         // Inflate the layout for this fragment
         binding = FragmentSignupFirstBinding.inflate(inflater, container, false)
+        (activity as AppCompatActivity).supportActionBar?.hide()
         return binding.root
     }
 

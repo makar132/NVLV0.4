@@ -32,7 +32,7 @@ class UserListViewModel(app:Application) : AndroidViewModel(app) {
 
 
     fun getUsersApi(name:String)=viewModelScope.launch{
-        u= listOf(User(0,"a","None"))
+        /*u= listOf(User(0,"a","None"))
         val result=remoteRepoImp.getApiUsers(name)
         u= listOf(User(0,"aa","None"))
         u= listOf(User(0,"aad","None"))
@@ -47,7 +47,7 @@ class UserListViewModel(app:Application) : AndroidViewModel(app) {
         else {
             u= listOf(User(0,"d","None"))
             Log.i("error",result.message())
-        }
+        }*/
     }
     fun addUserApi(user: User)=viewModelScope.launch {
         val result=remoteRepoImp.addApiUser(user)

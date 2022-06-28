@@ -8,29 +8,34 @@ import kotlinx.coroutines.withContext
 import retrofit2.Response
 
 class remoteRepoImp(private val api: serviceApi) : remoteRepo {
-    override suspend fun getApiUsers(name: String) =
+    override suspend fun getApiUser(token: String) =
         withContext(Dispatchers.IO) {
-            api.getApiUsers(name)
+            api.getApiUser(token)
         }
 
-    override suspend fun getApiAllUsers() =
-        withContext(Dispatchers.IO) {
-        api.getApiAllUsers()
+
+
+    override suspend fun getApiAllUsers(): Response<List<User>> {
+        TODO("Not yet implemented")
     }
 
-    override suspend fun addApiUser(user: User) = withContext(Dispatchers.IO) {
-
-        api.addApiUser(user)
+    override suspend fun addApiUser(user: User): Response<User> {
+        TODO("Not yet implemented")
     }
 
-    override suspend fun getApiAppUser(national_id: String): Response<List<appUser>> =
-        withContext(Dispatchers.IO) {
-            api.getApiAppUser(national_id)
-        }
+    override suspend fun getApiAppUser(national_id: String): Response<List<appUser>> {
+        TODO("Not yet implemented")
+    }
 
     override suspend fun addApiAppUser(appUser: appUser): Response<User> {
         TODO("Not yet implemented")
     }
+
+    override suspend fun loginUser(national_id: String , password:String)=
+        withContext(Dispatchers.IO) {
+
+            api.loginUser(loginRequest(national_id, password))
+        }
 
 
 }

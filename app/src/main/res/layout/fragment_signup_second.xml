@@ -44,6 +44,7 @@
         android:drawablePadding="30dp"
         android:ems="10"
         android:hint="national id"
+        android:digits="0123456789"
         android:inputType="textPersonName"
         android:paddingLeft="20dp"
         android:paddingTop="10dp"

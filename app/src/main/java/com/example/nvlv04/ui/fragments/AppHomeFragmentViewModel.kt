@@ -17,13 +17,13 @@ class AppHomeFragmentViewModel : ViewModel() {
     var user:appUser
     init {
         remoteRepoImp= remoteRepoImp(retroBuilder.getRetroBuilder().create(serviceApi::class.java))
-        user= appUser("-1")
+        user= appUser(-1)
     }
     private var appuserApiMutableLiveData= MutableLiveData<appUser>()
     val appuserApiLiveData: LiveData<appUser>
         get() =appuserApiMutableLiveData
     fun getAppUserApi(national_id:String)=viewModelScope.launch{
-        val result=remoteRepoImp.getApiAppUser(national_id)
+        /*val result=remoteRepoImp.getApiAppUser(national_id)
         if(result.isSuccessful){
             if (result.body()!=null)
             {
@@ -32,7 +32,7 @@ class AppHomeFragmentViewModel : ViewModel() {
         }
         else {
             Log.i("error1",result.message())
-        }
+        }*/
     }
 
 

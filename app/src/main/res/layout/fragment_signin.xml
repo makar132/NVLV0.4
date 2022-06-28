@@ -57,11 +57,11 @@
 
         android:scrollHorizontally="true"
         android:maxLines="1"
-        android:hint="Username"
+        android:hint="National ID"
         android:inputType="text"
         android:paddingStart="20dp"
         android:paddingTop="10dp"
-        android:digits="0123456789qwertyuiopasdfghjklzxcvbnmQWERTYUIOPASDFGHJKLZXCVBNM!#$%&amp;\'*+-/=?^_`{(|)}~., "
+        android:digits="0123456789"
         android:paddingBottom="3dp"
         android:paddingEnd="50dp"
 
@@ -125,7 +125,8 @@
         android:layout_marginBottom="170dp"
         android:background="@drawable/custom_button"
         android:text="Sign in"
-        android:enabled="false"
+        android:enabled="true"
+
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
@@ -151,27 +152,11 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="65dp"
-        android:text="@string/sign_up_here"
+        android:text="Signup now"
         android:textColor="@color/custom_color_1"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/tv4"
-        app:layout_constraintTop_toBottomOf="@+id/btn_sign_in" />
-
-    <EditText
-        android:id="@+id/editTextTextPassword"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="94dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="107dp"
-        android:layout_marginBottom="23dp"
-        android:ems="10"
-
-        android:inputType="textPassword"
-        app:layout_constraintBottom_toTopOf="@+id/tv4"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_sign_in" />
 
 

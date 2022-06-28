@@ -1,5 +1,9 @@
 package com.example.nvlv04.model.entity
 
-data class feedPost(    var photo_id: Int?,
-                        var description: String?,
+import android.graphics.drawable.Drawable
+import android.media.Image
+
+data class feedPost(
+    var image: Drawable,
+    var description: String?
 )

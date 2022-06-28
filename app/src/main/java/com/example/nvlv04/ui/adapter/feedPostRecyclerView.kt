@@ -10,20 +10,21 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.example.nvlv04.R
 import com.example.nvlv04.model.entity.User
+import com.example.nvlv04.model.entity.feedPost
 
 class feedPostRecyclerView: RecyclerView.Adapter<feedPostRecyclerView.UserViewHoldre>() {
-    var feed:List<User> = emptyList()
+    var feed:ArrayList<feedPost> = ArrayList()
     @SuppressLint("NotifyDataSetChanged")
-    fun setList(postList: List<User>){
+    fun setList(postList: ArrayList<feedPost>){
         this.feed=postList
         notifyDataSetChanged()
     }
     class UserViewHoldre(itemView: View) : RecyclerView.ViewHolder(itemView) {
         var iv_postImage:ImageView=itemView.findViewById(R.id.iv_post_image)
         var tv_postDesribtion:TextView=itemView.findViewById(R.id.tv_post_describtion)
-        fun bind(post: User) {
+        fun bind(post: feedPost) {
             iv_postImage.setImageResource(R.drawable.custom_user_icon)
-            tv_postDesribtion.text=post.id.toString()+" "+post.name+" "+post.message
+            tv_postDesribtion.text=post.description
 
         }
     }
@@ -36,7 +37,7 @@ class feedPostRecyclerView: RecyclerView.Adapter<feedPostRecyclerView.UserViewHo
     }
 
     override fun onBindViewHolder(holder: UserViewHoldre, position: Int) {
-        var post:User= feed[position]
+        var post:feedPost= feed[position]
         holder.bind(post)
     }
 

@@ -22,7 +22,7 @@
 
     <Button
         android:id="@+id/btn_report_missing"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:layout_marginBottom="35dp"
         android:text="report missing"
@@ -31,7 +31,7 @@
 
     <Button
         android:id="@+id/btn_open_report"
-        android:layout_width="match_parent"
+        android:layout_width="350dp"
         android:layout_height="wrap_content"
         android:text="Open report"
         android:background="@drawable/custom_button"

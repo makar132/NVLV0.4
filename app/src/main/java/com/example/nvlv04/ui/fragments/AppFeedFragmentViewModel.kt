@@ -18,13 +18,13 @@ class AppFeedFragmentViewModel : ViewModel() {
     var user: appUser
     init {
         remoteRepoImp= remoteRepoImp(retroBuilder.getRetroBuilder().create(serviceApi::class.java))
-        user= appUser("-1")
+        user= appUser()
     }
-    private var appuserApiMutableLiveData= MutableLiveData<List<User>>()
-    val appuserApiLiveData: LiveData<List<User>>
+    private var appuserApiMutableLiveData= MutableLiveData<appUser>()
+    val appuserApiLiveData: LiveData<appUser>
         get() =appuserApiMutableLiveData
-    fun getfeed()=viewModelScope.launch{
-        val result=remoteRepoImp.getApiAllUsers()
+    fun getuser(token:String)=viewModelScope.launch{
+        val result=remoteRepoImp.getApiUser("Bearer "+token)
         if(result.isSuccessful){
             if (result.body()!=null)
             {

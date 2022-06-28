@@ -50,8 +50,8 @@ class App_onboardingFragment : Fragment() {
        val btnNextStep: Button = binding.btnNextStep
 
        btnNextStep.setOnClickListener {
-
-           if (getItem() > mViewPager.childCount) {
+           Toast.makeText(context, "${mViewPager.childCount}, ${getItem()}", Toast.LENGTH_SHORT).show()
+           if (getItem() > 0) {
                findNavController().navigate(R.id.action_app_onboardingFragment_to_onboardingFinishFragment)
                //Animatoo.animateSlideRight(context!!)
            } else {

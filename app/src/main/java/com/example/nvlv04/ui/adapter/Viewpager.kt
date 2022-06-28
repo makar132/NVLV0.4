@@ -6,7 +6,7 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentPagerAdapter
 import com.example.nvlv04.ui.fragments.OnboardingPageFragment
 class Viewpager(fragmentManager: FragmentManager) : FragmentPagerAdapter(fragmentManager) {
-    private val total: Int = 3
+    private val total: Int = 2
     private val data : ArrayList<OnboardingPageFragment> = ArrayList(total)
 
     init {

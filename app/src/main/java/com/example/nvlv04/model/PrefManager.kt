@@ -17,6 +17,10 @@ class PrefManager(context: Context?) {
 
     var pref: SharedPreferences? = context?.getSharedPreferences(PREF_NAME, PRIVATE_MODE)
     var editor: SharedPreferences.Editor? = pref?.edit()
+    fun setJWT(JWT: String?) {
+        editor?.putString("JWT", JWT)
+        editor?.commit()
+    }
     fun setnavparent(navparent: String?) {
         editor?.putString("navparent", navparent)
         editor?.commit()
@@ -57,7 +61,9 @@ class PrefManager(context: Context?) {
         editor?.putString("FamilyMembermedicalrecord", medicalrecord)
         editor?.commit()
     }
-
+    fun Jwt(): String? {
+        return pref?.getString("JWT", "")
+    }
     fun isLogin(): Boolean? {
         return pref?.getBoolean(IS_LOGIN, false)
     }
