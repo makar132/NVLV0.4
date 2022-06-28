@@ -1,20 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.fragments.Add_family_member_dialogFragment">
-
-    <TextView
-        android:id="@+id/tv_dialog_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Add new family member"
-        android:textSize="24sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+    tools:context=".ui.fragments.Add_family_member_dialogFragment"
+    android:orientation="vertical"
+    android:gravity="center"
+    >
 
 
 
@@ -34,9 +27,6 @@
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="3dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/tv_dialog_title"
         />
     <EditText
         android:id="@+id/et_last_name"
@@ -52,9 +42,6 @@
         android:paddingLeft="20dp"
         android:paddingTop="10dp"
         android:paddingBottom="3dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_first_name"
         />
 
     <EditText
@@ -72,10 +59,12 @@
         android:paddingTop="10dp"
         android:paddingBottom="3dp"
         android:maxLength="60"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/et_last_name"
         />
+    <androidx.appcompat.widget.AppCompatImageView
+        android:id="@+id/iv_member_image"
+        android:layout_width="150dp"
+        android:layout_height="150dp"
+        android:scaleType="centerCrop"/>
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_upload_photo"
         android:layout_width="185dp"
@@ -86,25 +75,8 @@
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/et_medical_condition"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-
-        />
-    <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_add_family_memeber"
-        android:layout_width="146dp"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="25dp"
-        android:background="@drawable/custom_button_background_active"
-        android:text="Add member"
-        android:textAllCaps="false"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
 
         />
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+
+</LinearLayout>

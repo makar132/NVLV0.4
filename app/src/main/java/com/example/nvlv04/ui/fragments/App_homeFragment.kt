@@ -1,14 +1,23 @@
 package com.example.nvlv04.ui.fragments
 
+import android.app.Activity
+import android.app.AlertDialog
 import android.content.Context
+import android.content.Intent
 import android.content.SharedPreferences
+import android.graphics.Bitmap
+import android.media.MediaRecorder
 import android.net.ConnectivityManager
 import android.os.Bundle
+import android.provider.MediaStore
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import androidx.appcompat.widget.AppCompatImageView
+import androidx.core.widget.addTextChangedListener
+import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.fragment.findNavController
@@ -17,6 +26,14 @@ import com.example.nvlv04.databinding.FragmentAppHomeBinding
 import com.example.nvlv04.model.PrefManager
 import com.example.nvlv04.model.entity.familyMember
 import com.example.nvlv04.ui.adapter.FamilyMemberRecyclerView
+import com.example.nvlv04.ui.adapter.OnListItemClick
+import kotlinx.android.synthetic.main.app_report_reportfound_post.*
+import kotlinx.android.synthetic.main.fragment_add_family_member_dialog.*
+import kotlinx.android.synthetic.main.fragment_add_family_member_dialog.btn_upload_photo
+import kotlinx.android.synthetic.main.fragment_add_family_member_dialog.view.*
+import kotlinx.android.synthetic.main.fragment_signup_fourth.*
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.async
 
 // TODO: Rename parameter arguments, choose names that match
 // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
@@ -28,7 +45,7 @@ private const val ARG_PARAM2 = "param2"
  * Use the [App_homeFragment.newInstance] factory method to
  * create an instance of this fragment.
  */
-class App_homeFragment : Fragment(),SharedPreferences.OnSharedPreferenceChangeListener {
+class App_homeFragment : Fragment(),OnListItemClick {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -37,6 +54,9 @@ class App_homeFragment : Fragment(),SharedPreferences.OnSharedPreferenceChangeLi
     lateinit var binding: FragmentAppHomeBinding
     lateinit var viewModel: AppHomeFragmentViewModel
     private lateinit var prefManager: PrefManager
+    lateinit var pic: AppCompatImageView
+    lateinit var post_dialog:AlertDialog
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         arguments?.let {
@@ -77,10 +97,72 @@ class App_homeFragment : Fragment(),SharedPreferences.OnSharedPreferenceChangeLi
 
             }
         }
+        familyRecyclerView.onListItemClick=this
         binding.btnAddFamilyMemeber.setOnClickListener{
             if(familyRecyclerView.itemCount<3) {
-                prefManager.setnavparent("home")
-                findNavController().navigate(R.id.action_app_mainFragment_to_add_family_member_dialogFragment)
+                val Dialog=LayoutInflater.from(context).inflate(R.layout.fragment_add_family_member_dialog,null)
+                val dialogBuilder= AlertDialog.Builder(context)
+                    .setView(Dialog)
+                    .setTitle("Add Family Member")
+                    .setPositiveButton("Add Member"){dialog, which ->
+                        Toast.makeText(context, "add", Toast.LENGTH_SHORT).show()
+                    val firstName=Dialog.et_first_name.text.toString()
+                        val lastName=Dialog.et_last_name.text.toString()
+                        val medicalcondition=Dialog.et_medical_condition.text.toString()
+
+                        if(firstName.isEmpty()||lastName.isEmpty()){
+                            Toast.makeText(context,"Please fill all the fields",Toast.LENGTH_SHORT).show()
+                        }
+                        else{
+                            familyMemberList.add(familyMember(pic,firstName,lastName,medicalcondition))
+                            familyRecyclerView.setList(familyMemberList)
+                        }
+
+                    }
+                    .setNegativeButton("Cancel"){dialog, which ->
+                        Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show()
+                        dialog.dismiss()
+                    }
+                val alertDialog=dialogBuilder.create()
+                alertDialog.setOnShowListener {
+                    pic=alertDialog.iv_member_image
+                    post_dialog=alertDialog
+
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled=false
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isClickable=false
+                    alertDialog.et_first_name.addTextChangedListener{
+                        if(it.toString().isNotEmpty()&&it.toString().isNotBlank() && alertDialog.et_last_name.text.isNotEmpty()&&alertDialog.et_last_name.text.isNotBlank()){
+                            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled=true
+                            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isClickable=true
+                        }
+                        else{
+                            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled=false
+                            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isClickable=false
+                        }
+                    }
+                    alertDialog.et_last_name.addTextChangedListener{
+                        if(it.toString().isNotEmpty()&&it.toString().isNotBlank() && alertDialog.et_first_name.text.isNotEmpty()&&alertDialog.et_first_name.text.isNotBlank()){
+                            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled=true
+                            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isClickable=true
+                        }
+                        else{
+                            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled=false
+                            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isClickable=false
+                        }
+                    }
+                    alertDialog.btn_upload_photo.setOnClickListener {
+                        val intent= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                        GlobalScope.async {
+                            startActivityForResult(intent, MediaRecorder.VideoSource.CAMERA)
+                            onActivityResult(
+                                Activity.RESULT_OK,
+                                MediaRecorder.VideoSource.CAMERA,intent)
+                        }
+                    }
+
+                }
+                alertDialog.show()
+
             }
             else{
                 Toast.makeText(requireContext(),"You can add only 3 family members",Toast.LENGTH_LONG).show()
@@ -91,54 +173,93 @@ class App_homeFragment : Fragment(),SharedPreferences.OnSharedPreferenceChangeLi
     }
 
 
-    override fun onResume() {
-        super.onResume()
 
-        if(prefManager.getFamilyMemberfirstname()!=""){
-            val firstname=prefManager.getFamilyMemberfirstname()
-            val lastname=prefManager.getFamilyMemberlastname()
-            val medicalrecord=prefManager.getFamilyMembermedicalrecord()
-            val memberimageid=prefManager.getFamilyMemberimageid()
-            if(firstname!=null && lastname!=null && memberimageid!=null){
-                familyMemberList.add(familyMember(memberimageid,firstname,lastname,medicalrecord!!))
-                familyRecyclerView.setList(familyMemberList)
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if(requestCode== MediaRecorder.VideoSource.CAMERA){
+            if(resultCode==Activity.RESULT_OK){
+                Toast.makeText(context,"Photo Taken",Toast.LENGTH_LONG).show()
+                pic.setImageBitmap((data?.extras?.get("data") as Bitmap))
+                if(pic.drawable!=null && post_dialog.et_first_name.text.toString().isNotEmpty()&&post_dialog.et_first_name.text.toString().isNotBlank()){
+                    post_dialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled=true
+                    post_dialog.getButton(AlertDialog.BUTTON_POSITIVE).isClickable=true
+                }
+
             }
-            prefManager.reserfamilyMember()
-
+            else{
+                Toast.makeText(context,"Photo Not Taken",Toast.LENGTH_LONG).show()
+            }
         }
     }
-    companion object {
-        /**
-         * Use this factory method to create a new instance of
-         * this fragment using the provided parameters.
-         *
-         * @param param1 Parameter 1.
-         * @param param2 Parameter 2.
-         * @return A new instance of fragment App_homeFragment.
-         */
-        // TODO: Rename and change types and number of parameters
-        @JvmStatic
-        fun newInstance(param1: String, param2: String) =
-            App_homeFragment().apply {
-                arguments = Bundle().apply {
-                    putString(ARG_PARAM1, param1)
-                    putString(ARG_PARAM2, param2)
+
+    override fun onItemClick(member: familyMember) {
+        val Dialog=LayoutInflater.from(context).inflate(R.layout.fragment_add_family_member_dialog,null)
+        val dialogBuilder= AlertDialog.Builder(context)
+            .setView(Dialog)
+            .setTitle("Add Family Member")
+            .setPositiveButton("Update Member"){dialog, which ->
+                Toast.makeText(context, "add", Toast.LENGTH_SHORT).show()
+                val firstName=Dialog.et_first_name.text.toString()
+                val lastName=Dialog.et_last_name.text.toString()
+                val medicalcondition=Dialog.et_medical_condition.text.toString()
+
+                if(firstName.isEmpty()||lastName.isEmpty()){
+                    Toast.makeText(context,"Please fill all the fields",Toast.LENGTH_SHORT).show()
+                }
+                else{
+                    familyMemberList[familyMemberList.indexOf(member)]=(familyMember(pic,firstName,lastName,medicalcondition))
+                    familyRecyclerView.setList(familyMemberList)
+                }
+
+            }
+            .setNegativeButton("Cancel"){dialog, which ->
+                Toast.makeText(context, "cancel", Toast.LENGTH_SHORT).show()
+                dialog.dismiss()
+            }
+        val alertDialog=dialogBuilder.create()
+        alertDialog.setOnShowListener {
+            pic=alertDialog.iv_member_image
+            post_dialog=alertDialog
+            alertDialog.et_first_name.setText(member.firstname)
+            alertDialog.et_last_name.setText(member.lastname)
+            alertDialog.et_medical_condition.setText(member.medical_history)
+            alertDialog.iv_member_image.setImageDrawable(member.photo.drawable)
+
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled=false
+            alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isClickable=false
+            alertDialog.et_first_name.addTextChangedListener{
+                if(it.toString().isNotEmpty()&&it.toString().isNotBlank() && alertDialog.et_last_name.text.isNotEmpty()&&alertDialog.et_last_name.text.isNotBlank()){
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled=true
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isClickable=true
+                }
+                else{
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled=false
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isClickable=false
                 }
             }
-    }
-
-    override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        if(key=="FamilyMemberfirstname"){
-            val firstname=prefManager.getFamilyMemberfirstname()
-            val lastname=prefManager.getFamilyMemberlastname()
-            val medicalrecord=prefManager.getFamilyMembermedicalrecord()
-            val memberimageid=prefManager.getFamilyMemberimageid()
-            if(firstname!=null && lastname!=null && memberimageid!=null){
-                familyMemberList.add(familyMember(memberimageid,firstname,lastname,medicalrecord!!))
-                familyRecyclerView.setList(familyMemberList)
+            alertDialog.et_last_name.addTextChangedListener{
+                if(it.toString().isNotEmpty()&&it.toString().isNotBlank() && alertDialog.et_first_name.text.isNotEmpty()&&alertDialog.et_first_name.text.isNotBlank()){
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled=true
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isClickable=true
+                }
+                else{
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isEnabled=false
+                    alertDialog.getButton(AlertDialog.BUTTON_POSITIVE).isClickable=false
+                }
             }
-            prefManager.reserfamilyMember()
-        }
-    }
+            alertDialog.btn_upload_photo.setOnClickListener {
+                val intent= Intent(MediaStore.ACTION_IMAGE_CAPTURE)
+                GlobalScope.async {
+                    startActivityForResult(intent, MediaRecorder.VideoSource.CAMERA)
+                    onActivityResult(
+                        Activity.RESULT_OK,
+                        MediaRecorder.VideoSource.CAMERA,intent)
+                }
+            }
 
+        }
+        alertDialog.show()
+
+        Toast.makeText(context,"clicked",Toast.LENGTH_LONG).show()
+    }
 }

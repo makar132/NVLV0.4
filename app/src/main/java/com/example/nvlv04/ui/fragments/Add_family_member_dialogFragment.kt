@@ -34,39 +34,7 @@ lateinit var binding: FragmentAddFamilyMemberDialogBinding
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        activity?.onBackPressedDispatcher?.addCallback(viewLifecycleOwner) {
-            if(prefManager.getnavparent()=="home"){
-                prefManager.setnavparent(null)
-                findNavController().navigate(R.id.action_add_family_member_dialogFragment_to_app_mainFragment)
-            }
-            else {
-                activity?.onBackPressed()
-            }
-        }
 
-        prefManager = PrefManager(requireContext())
-        binding.btnAddFamilyMemeber.setOnClickListener {
-            val firstname=binding.etFirstName.text.toString()
-            val lastname=binding.etLastName.text.toString()
-            val membermedicalrecord=binding.etMedicalCondition.text.toString()
-            if(firstname.isNotEmpty() && lastname.isNotEmpty() ){
-                //val action = Add_family_member_dialogFragmentDirections.actionAddFamilyMemberDialogFragmentToSignupFragmentFourth(firstname,lastname,membermedicalrecord,0)
-               prefManager.setFamilyMemberfirstname(firstname)
-                prefManager.setFamilyMemberlastname(lastname)
-                if(membermedicalrecord.isNotEmpty())prefManager.setFamilyMembermedicalrecord(membermedicalrecord)
-                prefManager.setFamilyMemberimageid(0)
-                    //activity?.onBackPressed()
-                if(prefManager.getnavparent()=="home"){
-                    prefManager.setnavparent(null)
-                    findNavController().navigate(R.id.action_add_family_member_dialogFragment_to_app_mainFragment)
-                }
-                else {
-                    findNavController().navigate(R.id.action_add_family_member_dialogFragment_to_signupFragment_fourth)
-                }
-
-            }
-
-        }
     }
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)

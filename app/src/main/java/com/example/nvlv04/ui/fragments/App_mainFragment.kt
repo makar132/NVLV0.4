@@ -14,7 +14,7 @@ import kotlinx.coroutines.*
 class App_mainFragment : Fragment() {
     lateinit var binding: FragmentAppMainBinding
     val homefragment = App_homeFragment()
-    val reportfragment = currentlocationFragment()
+    val reportfragment = App_reportFragment()
     val feedfragment = App_feedFragment()
     val settingsfragment = App_settingsFragment()
     lateinit var transaction: FragmentTransaction
