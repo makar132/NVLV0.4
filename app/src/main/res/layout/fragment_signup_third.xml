@@ -32,18 +32,18 @@
 
 
     <androidx.appcompat.widget.AppCompatButton
-        android:id="@+id/btn_payment_method"
+        android:id="@+id/btn_upload_photo"
         android:layout_width="300dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="15dp"
         android:background="@drawable/custom_button_background_active"
-        android:text="Choose photo "
+        android:text="Upload photo"
         android:textAllCaps="false"
         android:textColor="@color/white"
         android:textSize="22sp"
-        app:layout_constraintTop_toBottomOf="@id/tv_instruction"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_instruction"
 
         />
 
@@ -62,6 +62,18 @@
 
         />
 
+    <ImageView
+        android:id="@+id/imageView"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:layout_marginTop="67dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_next"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/btn_upload_photo"
+        tools:src="@tools:sample/avatars"
+        android:scaleType="fitCenter"
+        />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

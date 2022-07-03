@@ -8,13 +8,15 @@
 
     <ImageView
         android:id="@+id/iv_member_image"
-        android:layout_width="64dp"
-        android:layout_height="67dp"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
         android:layout_marginStart="8dp"
         android:layout_marginTop="18dp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/custom_user_icon" />
+        android:scaleType="centerInside"
+        app:srcCompat="@drawable/custom_user_icon"
+        />
 
     <TextView
         android:id="@+id/tv_member_name"

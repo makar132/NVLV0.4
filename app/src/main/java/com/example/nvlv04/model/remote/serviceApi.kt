@@ -11,6 +11,10 @@ interface serviceApi {
     suspend fun getApiUser(
         @Header("Authorization") token: String
     ):Response<appUser>
+    @GET("/family/admin")
+    suspend fun getFamily(
+        @Header("Authorization") token: String
+    ):Response<familymembers>
     @POST("/picture")
     suspend fun setuserpicture(
         @Header("Content-Type") contentType: String,

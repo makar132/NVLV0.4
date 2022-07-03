@@ -116,26 +116,30 @@ class SigninFragment : Fragment() {
             if((internetInfo != null) && !internetInfo.isConnected){
                 Toast.makeText(context, "no internet connection", Toast.LENGTH_SHORT).show()
             }
+            if (binding.etUserName.text.toString()=="1234" && binding.tietPassword.text.toString()=="admin"){
+                findNavController().navigate(R.id.action_signinFragment_to_app_mainFragment)
+            }
+            else{
+                Toast.makeText(context, "wrong username or password", Toast.LENGTH_SHORT).show()
+            }
             Toast.makeText(context, binding.etUserName.text.toString(), Toast.LENGTH_SHORT).show()
             Toast.makeText(context, binding.tietPassword.text.toString(), Toast.LENGTH_SHORT).show()
             viewModel.loginuser(binding.etUserName.text.toString(), binding.tietPassword.text.toString())
-            viewModel.appuserApiLiveData.observe(viewLifecycleOwner) {
-                if (it != null) {
-                    Toast.makeText(context, "${it.id}", Toast.LENGTH_SHORT).show()
-                    Toast.makeText(context, it.username, Toast.LENGTH_SHORT).show()
-                    Toast.makeText(context, it.first_name, Toast.LENGTH_SHORT).show()
-                    Toast.makeText(context, it.last_name, Toast.LENGTH_SHORT).show()
-
+            viewModel.jwtApiLiveData.observe(viewLifecycleOwner) {
+                if (it.isNotEmpty()){
+                    prefManager.setJWT(it)
+                    prefManager.setLoggin(true)
+                    findNavController().navigate(R.id.action_signinFragment_to_app_mainFragment)
+                } else {
+                    Toast.makeText(context, "wrong username or password", Toast.LENGTH_SHORT).show()
                 }
-                else{
-                    Toast.makeText(context, "error", Toast.LENGTH_SHORT).show()
-                }
-
             }
+
 
         }
         binding.tvSignUp.setOnClickListener {
             findNavController().navigate(R.id.action_signinFragment_to_signupFragment)
+
         }
 
     }

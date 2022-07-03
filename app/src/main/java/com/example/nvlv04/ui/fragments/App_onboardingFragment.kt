@@ -39,20 +39,23 @@ class App_onboardingFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         binding=FragmentAppOnboardingBinding.inflate(inflater,container,false)
+       prefManager = PrefManager(context)
+
        mViewPager = binding.viewPager
        mViewPager.adapter = OnboardingViewPagerAdapter(activity!!, context!!)
        TabLayoutMediator(binding.pageIndicator, mViewPager) { _, _ -> }.attach()
        textSkip = binding.textSkip
        textSkip.setOnClickListener {
-           findNavController().navigate(R.id.action_app_onboardingFragment_to_onboardingFinishFragment)
+           findNavController().navigate(R.id.action_app_onboardingFragment_to_startFragment)
        }
 
        val btnNextStep: Button = binding.btnNextStep
 
        btnNextStep.setOnClickListener {
-           Toast.makeText(context, "${mViewPager.childCount}, ${getItem()}", Toast.LENGTH_SHORT).show()
+           //Toast.makeText(context, "${mViewPager.childCount}, ${getItem()}", Toast.LENGTH_SHORT).show()
            if (getItem() > 0) {
-               findNavController().navigate(R.id.action_app_onboardingFragment_to_onboardingFinishFragment)
+               prefManager.setOnboarding()
+               findNavController().navigate(R.id.action_app_onboardingFragment_to_startFragment)
                //Animatoo.animateSlideRight(context!!)
            } else {
                mViewPager.setCurrentItem(getItem() + 1, true)

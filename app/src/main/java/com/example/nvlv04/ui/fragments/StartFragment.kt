@@ -29,10 +29,19 @@ class StartFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         if(prefManager.Onboard() == true){
+            if(prefManager.isLogin()==true){
+                Handler(Looper.getMainLooper()).postDelayed({
+                    findNavController().navigate(R.id.action_startFragment_to_app_mainFragment)
+                }, 2000)
+            }
+            else{
+
             Handler(Looper.myLooper()!!).postDelayed({
                 findNavController().navigate(R.id.action_startFragment_to_signinFragment)
             }, 2000)
+            }
 
         }
         else{

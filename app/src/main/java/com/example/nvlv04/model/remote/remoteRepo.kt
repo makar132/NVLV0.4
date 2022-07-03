@@ -5,6 +5,8 @@ import com.example.nvlv04.model.entity.appUser
 import retrofit2.Call
 import retrofit2.Response
 import retrofit2.http.Body
+import retrofit2.http.GET
+import retrofit2.http.Header
 
 interface remoteRepo {
     suspend fun getApiUser(token: String): Response<appUser>
@@ -13,6 +15,7 @@ interface remoteRepo {
     suspend fun getApiAppUser(national_id: String): Response<List<appUser>>
     suspend fun addApiAppUser(appUser: appUser): Response<User>
     suspend fun loginUser(national_id: String , password:String): Response<jsonModel>
+    suspend fun getFamily(token: String):Response<familymembers>
 
 
 }

@@ -23,8 +23,8 @@ class signinFragmentViewModel : ViewModel() {
         remoteRepoImp = remoteRepoImp(retroBuilder.getRetroBuilder().create(serviceApi::class.java))
         user = appUser()
     }
-    private var jwtApiMutableLiveData = MutableLiveData<appUser>()
-    val jwtApiLiveData: LiveData<appUser>
+    private var jwtApiMutableLiveData = MutableLiveData<String>()
+    val jwtApiLiveData: LiveData<String>
         get() = jwtApiMutableLiveData
     private var appuserApiMutableLiveData = MutableLiveData<appUser>()
     val appuserApiLiveData: LiveData<appUser>
@@ -35,18 +35,7 @@ class signinFragmentViewModel : ViewModel() {
         if (result.isSuccessful) {
             Log.v("response", result.body()?.token!!.toString())
             if (result.body() != null) {
-                log(result.body()?.token!!.toString())
-
-                val jsonmodel = result.body()
-                val getuser = remoteRepoImp.getApiUser("Bearer "+jsonmodel?.token!!)
-                if (getuser.isSuccessful) {
-                    if (getuser.body() != null) {
-                        appuserApiMutableLiveData.postValue(getuser.body())
-                    }
-                    else{
-                        Log.v("response", "error")
-                    }
-                }
+                jwtApiMutableLiveData.postValue(result.body()?.token)
 
             } else {
                 Log.d("error", "error")

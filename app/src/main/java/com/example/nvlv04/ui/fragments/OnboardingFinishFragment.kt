@@ -37,7 +37,7 @@ class OnboardingFinishFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         binding.layoutStart.setOnClickListener {
-            findNavController().navigate(R.id.action_onboardingFinishFragment_to_startFragment)
+            findNavController().navigate(R.id.action_onboardingFinishFragment_to_app_mainFragment)
             prefManager.setOnboarding()
 //            Animatoo.animateSlideLeft(context!!)
             Animatoo.animateSpin(context!!)

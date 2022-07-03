@@ -37,5 +37,11 @@ class remoteRepoImp(private val api: serviceApi) : remoteRepo {
             api.loginUser(loginRequest(national_id, password))
         }
 
+    override suspend fun getFamily(token: String)=
+        withContext(Dispatchers.IO) {
+
+        api.getFamily(token)
+    }
+
 
 }

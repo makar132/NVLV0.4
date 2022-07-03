@@ -66,7 +66,7 @@ var familyMemberList: ArrayList<familyMember> = ArrayList()
                     .setView(Dialog)
                     .setTitle("Add Family Member")
                     .setPositiveButton("Add Member"){dialog, which ->
-                        Toast.makeText(context, "add", Toast.LENGTH_SHORT).show()
+                        //Toast.makeText(context, "add", Toast.LENGTH_SHORT).show()
                         val firstName=Dialog.et_first_name.text.toString()
                         val lastName=Dialog.et_last_name.text.toString()
                         val medicalcondition=Dialog.et_medical_condition.text.toString()
@@ -129,7 +129,7 @@ var familyMemberList: ArrayList<familyMember> = ArrayList()
             }
         }
         //familyRecyclerView.family+=familyMember(0,args.toBundle().getString("name")!!,args.toBundle().getString("medical_record")!!)
-        binding.btnNext.setOnClickListener { findNavController().navigate(R.id.action_signupFragment_fourth_to_app_mainFragment) }
+        binding.btnNext.setOnClickListener { findNavController().navigate(R.id.action_signupFragment_fourth_to_onboardingFinishFragment) }
     }
 
 

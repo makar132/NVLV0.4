@@ -27,6 +27,7 @@ import com.example.nvlv04.model.PrefManager
 import com.example.nvlv04.model.entity.familyMember
 import com.example.nvlv04.ui.adapter.FamilyMemberRecyclerView
 import com.example.nvlv04.ui.adapter.OnListItemClick
+import com.squareup.picasso.Picasso
 import kotlinx.android.synthetic.main.app_report_reportfound_post.*
 import kotlinx.android.synthetic.main.fragment_add_family_member_dialog.*
 import kotlinx.android.synthetic.main.fragment_add_family_member_dialog.btn_upload_photo
@@ -88,15 +89,30 @@ class App_homeFragment : Fragment(),OnListItemClick {
         if((internetInfo != null) && !internetInfo.isConnected){
             Toast.makeText(context, "no internet connection", Toast.LENGTH_SHORT).show()
         }
-        viewModel.getAppUserApi("1")
+        viewModel.getAppUserdata(prefManager.Jwt()!!)
         viewModel.appuserApiLiveData.observe(viewLifecycleOwner) {
             if (it != null) {
                 binding.tvUserName.text=it.first_name+" ,"+it.last_name
                 binding.tvEmail.text=it.email
-
+                Picasso.with(requireContext()).load("http://api.never-lost.tech/picture/${it.id}").into(binding.ivUserImage)
 
             }
         }
+        viewModel.getfamily(prefManager.Jwt()!!)
+        viewModel.familyLiveData.observe(viewLifecycleOwner) {
+            if (it != null) {
+                familyMemberList.clear()
+//                familyMemberList.addAll(it)
+                for(item in it){
+                    familyMemberList.add(familyMember(AppCompatImageView(context!!),item.email,item.phone,item.medical_record))
+                    Picasso.with(requireContext()).load("http://api.never-lost.tech/picture/${item.picture_id}").into(familyMemberList.last().photo)
+                }
+                familyRecyclerView.setList(familyMemberList)
+            }
+        }
+        getFragmentManager()?.beginTransaction()?.detach(this)?.attach(this)?.commit()
+        //familyRecyclerView.setList(familyMemberList)
+
         familyRecyclerView.onListItemClick=this
         binding.btnAddFamilyMemeber.setOnClickListener{
             if(familyRecyclerView.itemCount<3) {
@@ -196,7 +212,7 @@ class App_homeFragment : Fragment(),OnListItemClick {
         val Dialog=LayoutInflater.from(context).inflate(R.layout.fragment_add_family_member_dialog,null)
         val dialogBuilder= AlertDialog.Builder(context)
             .setView(Dialog)
-            .setTitle("Add Family Member")
+            .setTitle("Update Family Member Data")
             .setPositiveButton("Update Member"){dialog, which ->
                 Toast.makeText(context, "add", Toast.LENGTH_SHORT).show()
                 val firstName=Dialog.et_first_name.text.toString()
@@ -260,6 +276,6 @@ class App_homeFragment : Fragment(),OnListItemClick {
         }
         alertDialog.show()
 
-        Toast.makeText(context,"clicked",Toast.LENGTH_LONG).show()
+//        Toast.makeText(context,"clicked",Toast.LENGTH_LONG).show()
     }
 }
